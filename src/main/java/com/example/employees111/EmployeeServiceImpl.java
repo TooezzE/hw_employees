@@ -19,7 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firstName, String lastName, int salary, int departamentId){
-        checkEmployee(firstName, lastName);
+        checkEmployeeData(firstName, lastName);
         if(employees.size() >= 10){
             throw new EmployeeStorageIsFullException("Нельзя добавить сотрудника. Коллекция переполнена");
         }
@@ -93,9 +93,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    public void checkEmployee(String firstName, String lastName){
-        if(StringUtils.containsAny(firstName, " ", ",", " <([{\\^-=$!|]})?*+.>")
-            || StringUtils.containsAny(lastName, " ", ",", " <([{\\^-=$!|]})?*+.>")) {
+    public void checkEmployeeData(String firstName, String lastName){
+        if(StringUtils.containsAny(firstName, " ", ",", " <([0-9{\\^-=$!|]})?*+.>")
+            || StringUtils.containsAny(lastName, " ", ",", " <([0-9{\\^-=$!|]})?*+.>")) {
             throw new BadRequestException();
         } else if(StringUtils.isEmpty(firstName) || StringUtils.isEmpty(lastName)) {
             throw new BadRequestException();
