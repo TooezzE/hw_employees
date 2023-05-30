@@ -28,6 +28,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 throw new EmployeeAlreadyAddedException("Сотрудник с таким именем уже есть в коллекции");
             }
         }
+        StringUtils.capitalize(firstName);
+        StringUtils.capitalize(lastName);
         Employee employee = new Employee(firstName, lastName, salary, departamentId);
         employees.add(employee);
         return employee;
